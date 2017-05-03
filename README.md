@@ -1,4 +1,4 @@
-# My-little-toad
+# My Little Toad
 
 Hi peoples!
 
