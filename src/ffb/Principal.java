@@ -19,8 +19,8 @@ import javax.swing.SwingConstants;
 
 public class Principal extends JFrame {
 
-	JLabel tempo = new JLabel("10");
-	private int segundos = 10;
+	JLabel tempo = new JLabel("30");
+	private int segundos = 30;
 
 	public int getSegundos() {
 		return segundos;
