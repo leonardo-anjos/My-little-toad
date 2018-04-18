@@ -118,8 +118,9 @@ public class Cenario extends Personagem implements Runnable, Serializable {
 
 				} catch (ColisaoException e) {
 					System.out.println(Points);
-					//this.lbltexto.setText("Ponto(s): " + this.Points++);
-					//this.lbltexto.setBounds(700, 0, 500, 50);
+					//aqui ocorre a colisao e faz a pontuaÃ§Ã£o
+					this.lbltexto.setText("Ponto(s): " + this.Points++);
+					this.lbltexto.setBounds(700, 0, 500, 50);
 				}
 
 			}
@@ -130,7 +131,7 @@ public class Cenario extends Personagem implements Runnable, Serializable {
 			 */
 
 			if (this.getPoints() == 10) {
-				JOptionPane.showMessageDialog(null, "Parabéns! Você venceu!\n" + "Pontuação: " + this.getPoints());
+				JOptionPane.showMessageDialog(null, "ParabÃ©ns! VocÃª venceu!\n" + "PontuaÃ§Ã£o: " + this.getPoints());
 				System.exit(0);
 			}
 
