@@ -53,7 +53,7 @@ public class Inseto extends Personagem implements Serializable {
 	public void insetosAleatorios() {
 		Random n_aleatorio = new Random();
 		rectangle_inseto.x = n_aleatorio.nextInt(300);
-		rectangle_inseto.y = n_aleatorio.nextInt(900);
+		rectangle_inseto.y = n_aleatorio.nextInt(500);
 		this.jlabel_inseto.setBounds(rectangle_inseto);
 	}
 
