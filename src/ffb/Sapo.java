@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 
 public class Sapo extends Personagem implements Serializable {
 
+	private static final long serialVersionUID = -5974501580700393665L;
+
 	private JLabel jlabel_sapo;
 	private Rectangle rectangle_sapo;
 	private ImageIcon img_sapo;
@@ -15,9 +17,9 @@ public class Sapo extends Personagem implements Serializable {
 	int count = 0;
 
 	public Sapo() {
-		
+
 	}
-	
+
 	public Sapo(int x, int y, int velocidade, int heigth, int width, int life, int strength) {
 		super(x, y, heigth, width, velocidade);
 		this.rectangle_sapo = new Rectangle(x, y, heigth, width);
@@ -40,8 +42,8 @@ public class Sapo extends Personagem implements Serializable {
 
 	public boolean comer(Inseto inseto) throws ColisaoException {
 		if (rectangle_sapo.intersects(inseto.getRectangle_inseto())) {
-			this.setLife(this.getLife()+1);
-			this.setStrength(this.getStrength()+100);
+			this.setLife(this.getLife() + 1);
+			this.setStrength(this.getStrength() + 100);
 			count++;
 			throw new ColisaoException();
 		}

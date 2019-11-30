@@ -1,16 +1,9 @@
 package ffb;
 
 import java.awt.BorderLayout;
-
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,25 +12,26 @@ import javax.swing.SwingConstants;
 
 public class Principal extends JFrame {
 
-	JLabel tempo = new JLabel("30");
-	private int segundos = 30;
-
-	public int getSegundos() {
-		return segundos;
-	}
-
-	public void SetSegundos(int segundos) {
-		this.segundos = segundos;
-	}
+	private static final long serialVersionUID = 5337795894807525294L;
 
 	static Cenario cenario;
+	private int tempoJogo = 30;
+	JLabel cronometroJogo = new JLabel(Integer.toString(tempoJogo));
+	
+	public int getTempoJogo() {
+		return this.tempoJogo;
+	}
+
+	public void setTempoJogo(int tempoJogo) {
+		this.tempoJogo = tempoJogo;
+	}
 
 	public void editarJanela() {
 		Font fonte = new Font("Arial", Font.BOLD, 20);
-		add(BorderLayout.NORTH, tempo);
+		add(BorderLayout.NORTH, cronometroJogo);
 
-		tempo.setHorizontalAlignment(SwingConstants.CENTER);
-		tempo.setFont(fonte);
+		cronometroJogo.setHorizontalAlignment(SwingConstants.CENTER);
+		cronometroJogo.setFont(fonte);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 500);
@@ -48,29 +42,28 @@ public class Principal extends JFrame {
 	}
 
 	private void cronometro() {
-		// TODO Auto-generated method stub
 		while (true) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			if (this.getSegundos() == 0) {
-				JOptionPane.showMessageDialog(null, "Tempo Excedido!");
+			if (this.getTempoJogo() == 0) {
+				JOptionPane.showMessageDialog(null, "fim de jogo!");
 				System.exit(0);
 			} else {
-				this.SetSegundos(this.getSegundos() - 1);
-				;
-				tempo.setText(this.segundos + "");
+				this.setTempoJogo(this.getTempoJogo() - 1);
+				cronometroJogo.setText(Integer.toString(this.getTempoJogo()));
 			}
 
 		}
 	}
 
 	public Principal() {
-		super("meuSapinho Developed by::Leonardo Anjos");
+		super("meu sapinho - developed by::Leonardo Anjos");
+		
+		this.setTempoJogo(30);
 
 		cenario = new Cenario();
 
@@ -78,8 +71,9 @@ public class Principal extends JFrame {
 
 		add(cenario.getSapo().getJlabel_sapo());
 
-		for (int moedas = 0; moedas < 3; moedas++)
-			add(cenario.getLista_insetos(moedas).getJlabel_inseto());
+		for (int insetos = 0; insetos < 3; insetos++) {
+			add(cenario.getLista_insetos(insetos).getJlabel_inseto());			
+		}
 
 		add(cenario.getLbltexto());
 
@@ -114,19 +108,21 @@ public class Principal extends JFrame {
 				}
 			}
 
-			public void keyReleased(KeyEvent e) {
-				// System.out.println("" + e.getKeyCode());
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
 			}
 
-			public void keyTyped(KeyEvent e) {
-
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
 
 	public static void main(String[] args) {
-
 		new Principal();
-
 	}
 }

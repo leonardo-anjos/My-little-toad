@@ -7,17 +7,19 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public class Cenario extends Personagem implements Runnable, Serializable {
+
+	private static final long serialVersionUID = 8042508032808258378L;
 
 	private ArrayList<Inseto> lista_insetos = new ArrayList<Inseto>();
 	private Thread SecondTasksd = new Thread(this);
 	private JLabel cenario_jlabel, lbltexto;
 	private Sapo sapo;
-	private int Points;
+	private int score;
 
 	public Cenario() {
 		exibirCenario();
@@ -33,10 +35,6 @@ public class Cenario extends Personagem implements Runnable, Serializable {
 
 	public Thread getSecondTasksd() {
 		return SecondTasksd;
-	}
-
-	public int getPoints() {
-		return Points;
 	}
 
 	public JLabel getLbltexto() {
@@ -75,14 +73,13 @@ public class Cenario extends Personagem implements Runnable, Serializable {
 	}
 
 	private void arquivo() {
-		// TODO Auto-generated method stub
-		File file = new File("C:\\Users\\Leonardo\\Desktop\\meuSapinho.txt");
+		File file = new File("./score.txt");
 
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-			oos.writeObject(Points);
+			oos.writeObject(score);
 
 			oos.close();
 			fos.close();
@@ -97,42 +94,31 @@ public class Cenario extends Personagem implements Runnable, Serializable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		int d = 0, n = 0, i = 0;
 		while (true) {
 			try {
 				// tempo para surgir o mosquito
 				Thread.sleep(1000);
 			} catch (Exception erro) {
+				erro.printStackTrace();
 			}
 
-			for (i = 0; i < 4; i++) {
+			for (int i = 0; i < 4; i++) {
 				lista_insetos.get(i).insetosAleatorios();
 
 				try {
 					sapo.comer(lista_insetos.get(i));
 					this.setStrength(this.getStrength() + 100);
-					if (this.getPoints() == 5) {
+					if (score == 5) {
 						this.setLife(this.getLife() + 1);
 					}
 
 				} catch (ColisaoException e) {
-					System.out.println(Points);
-					//aqui ocorre a colisao e faz a pontuação
-					this.lbltexto.setText("Ponto(s): " + this.Points++);
+					// System.out.println(score);
+					// aqui ocorre a colisao e faz a pontuacao
+					this.lbltexto.setText("score: " + (score++));
 					this.lbltexto.setBounds(700, 0, 500, 50);
 				}
 
-			}
-			/*
-			 * if (this.getLife() == 0 || this.getStrength() == 0) {
-			 * JOptionPane.showMessageDialog(null, "Seu sapinho morreu! :(" );
-			 * System.exit(0); }
-			 */
-
-			if (this.getPoints() == 10) {
-				JOptionPane.showMessageDialog(null, "Parabéns! Você venceu!\n" + "Pontuação: " + this.getPoints());
-				System.exit(0);
 			}
 
 		}
